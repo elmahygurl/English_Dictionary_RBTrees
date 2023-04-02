@@ -1,0 +1,117 @@
+
+
+class RBNode:
+    def __init__(self, val):
+        self.parent = None
+        self.left = None
+        self.right = None
+        self.val = val
+        self.color = False     # black false - red true
+
+
+class RBTree:
+    def __init__(self):
+        self.nil = RBNode(0)
+        self.nil.color = False
+        self.nil.left = None
+        self.nil.right = None
+        self.root = self.nil
+
+    def insert(self, val):
+        # Ordinary Binary Search Insertion
+        new_node = RBNode(val)
+        new_node.parent = None
+        new_node.left = self.nil
+        new_node.right = self.nil
+        new_node.color = True  # new node must be red
+
+        parent = None
+        current = self.root
+        while current != self.nil:
+            parent = current
+            if new_node.val < current.val:
+                current = current.left
+            elif new_node.val > current.val:
+                current = current.right
+            else:
+                return
+
+        # Set the parent and insert the new node
+        new_node.parent = parent
+        if parent == None:
+            self.root = new_node
+        elif new_node.val < parent.val:
+            parent.left = new_node
+        else:
+            parent.right = new_node
+
+        # Fix the tree
+        self.fix_insert(new_node)
+
+    def fix_insert(self, new_node):
+        while new_node != self.root and new_node.parent.color:
+            if new_node.parent == new_node.parent.parent.right:
+                u = new_node.parent.parent.left  # uncle
+                if u.color:
+                    u.color = False
+                    new_node.parent.color = False
+                    new_node.parent.parent.color = True
+                    new_node = new_node.parent.parent
+                else:
+                    if new_node == new_node.parent.left:
+                        new_node = new_node.parent
+                        self.rotate_right(new_node)
+                    new_node.parent.color = False
+                    new_node.parent.parent.color = True
+                    self.rotate_left(new_node.parent.parent)
+            else:
+                u = new_node.parent.parent.right  # uncle
+
+                if u.color:
+                    u.color = False
+                    new_node.parent.color = False
+                    new_node.parent.parent.color = True
+                    new_node = new_node.parent.parent
+                else:
+                    if new_node == new_node.parent.right:
+                        new_node = new_node.parent
+                        self.rotate_left(new_node)
+                    new_node.parent.color = False
+                    new_node.parent.parent.color = True
+                    self.rotate_right(new_node.parent.parent)
+        self.root.color = False
+
+
+    # rotate left at node x
+    def rotate_left(self, x):
+        y = x.right
+        x.right = y.left
+        if y.left != self.nil:
+            y.left.parent = x
+
+        y.parent = x.parent
+        if x.parent == None:
+            self.root = y
+        elif x == x.parent.left:
+            x.parent.left = y
+        else:
+            x.parent.right = y
+        y.left = x
+        x.parent = y
+
+    # rotate right at node x
+    def rotate_right(self, x):
+        y = x.left
+        x.left = y.right
+        if y.right != self.nil:
+            y.right.parent = x
+
+        y.parent = x.parent
+        if x.parent == None:
+            self.root = y
+        elif x == x.parent.right:
+            x.parent.right = y
+        else:
+            x.parent.left = y
+        y.right = x
+        x.parent = y
