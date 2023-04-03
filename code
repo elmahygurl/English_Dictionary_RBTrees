@@ -1,12 +1,10 @@
-
-
 class RBNode:
     def __init__(self, val):
         self.parent = None
         self.left = None
         self.right = None
         self.val = val
-        self.color = False     # black false - red true
+        self.color = False  # black false - red true
 
 
 class RBTree:
@@ -38,7 +36,7 @@ class RBTree:
 
         # Set the parent and insert the new node
         new_node.parent = parent
-        if parent == None:
+        if parent is None:
             self.root = new_node
         elif new_node.val < parent.val:
             parent.left = new_node
@@ -81,7 +79,6 @@ class RBTree:
                     self.rotate_right(new_node.parent.parent)
         self.root.color = False
 
-
     # rotate left at node x
     def rotate_left(self, x):
         y = x.right
@@ -90,7 +87,7 @@ class RBTree:
             y.left.parent = x
 
         y.parent = x.parent
-        if x.parent == None:
+        if x.parent is None:
             self.root = y
         elif x == x.parent.left:
             x.parent.left = y
@@ -107,7 +104,7 @@ class RBTree:
             y.right.parent = x
 
         y.parent = x.parent
-        if x.parent == None:
+        if x.parent is None:
             self.root = y
         elif x == x.parent.right:
             x.parent.right = y
@@ -115,3 +112,46 @@ class RBTree:
             x.parent.left = y
         y.right = x
         x.parent = y
+
+
+# def search(value, root):
+#     current = root
+#     while current is not None:
+#         if value == current.val:
+#             return True
+#         elif value < str(current.val):
+#             current = current.left
+#         else:
+#             current = current.right
+#     return False
+
+
+def search(value, root):
+    if root is not None:
+        if root.val == value:
+            return root
+        else:
+            if value < str(root.val):
+                return search(value, root.left)
+            else:
+                return search(value, root.right)
+    return False
+
+
+def main():
+    print("HI")
+    tree = RBTree()
+    tree.insert("ahmed")
+    tree.insert("youssef")
+    tree.insert("yuef")
+    tree.insert("yoef")
+    tree.insert("youss")
+    if search("ahme", tree.root):
+        print('YES')
+    else:
+        print('NO')
+
+
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    main()
