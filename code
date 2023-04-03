@@ -32,6 +32,7 @@ class RBTree:
             elif new_node.val > current.val:
                 current = current.right
             else:
+                print("ERROR: Word already in the dictionary!")
                 return
 
         # Set the parent and insert the new node
@@ -114,7 +115,7 @@ class RBTree:
         x.parent = y
 
 
-# def search(value, root):
+# def search(value, root):  use this function if we want to use it in the class RBtrees
 #     current = root
 #     while current is not None:
 #         if value == current.val:
@@ -125,13 +126,30 @@ class RBTree:
 #             current = current.right
 #     return False
 
+def count_nodes(root):
+    if root is None:
+        return 0
+    else:
+        return 1 + count_nodes(root.left)+count_nodes(root.right)
+
+
+# def get_height(root):
+#     if root is None:
+#         return 0
+#     else:
+#         return 1+max(get_height(root.left), get_height(root.right))
+
+
+def dict_size(tree):
+    return count_nodes(tree.root)//2    # since every inserted node has 2 nil children, we have to remove them
+
 
 def search(value, root):
-    if root is not None:
-        if root.val == value:
+    if root is not None:  # checks whether root is none or not, if none then return false and element is not found
+        if root.val == value:   # checks if the given value is at the present node to return it
             return root
         else:
-            if value < str(root.val):
+            if value < str(root.val):   # checks if node has higher or lower value to implement search by recursion
                 return search(value, root.left)
             else:
                 return search(value, root.right)
@@ -146,6 +164,10 @@ def main():
     tree.insert("yuef")
     tree.insert("yoef")
     tree.insert("youss")
+    print(dict_size(tree))
+    tree.insert("ahme")
+    tree.insert("ahme")
+    print(dict_size(tree))
     if search("ahme", tree.root):
         print('YES')
     else:
@@ -155,3 +177,4 @@ def main():
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
+
