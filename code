@@ -65,11 +65,12 @@ class RBTree:
         while new_node != self.root and new_node.parent.color:  # while the new node isn't the root and has color red
             if new_node.parent == new_node.parent.parent.right:  # if parent is right child of grandparent
                 u = new_node.parent.parent.left  # uncle is the left child of the grandparent
+                #case 1
                 if u.color:  # if uncle is red then make him and parent black then make grandparent red
                     u.color = False
                     new_node.parent.color = False
                     new_node.parent.parent.color = True
-                    new_node = new_node.parent.parent
+                    new_node = new_node.parent.parent     # to recursivly call fixup on grandparent
                 else:  # if uncle is black and new node the left node of its parent
                     if new_node == new_node.parent.left:  # if new node is left child we rotate right
                         new_node = new_node.parent
