@@ -140,6 +140,7 @@ def load_dict(tree):
         for line in file:
             tree.insert(line.strip('\n'))
     print("tree height is {}".format(tree.height(tree.root)))
+    print("the new tree size is {} ".format(tree.size))
     return
 
 
