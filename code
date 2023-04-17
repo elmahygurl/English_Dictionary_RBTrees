@@ -136,7 +136,7 @@ class RBTree:
 
 
 def load_dict(tree):
-    with open('dict.txt', 'r') as file:
+    with open('EN-US-Dictionary.txt', 'r') as file:
         for line in file:
             tree.insert(line.strip('\n'))
     print("tree height is {}".format(tree.height(tree.root)))
