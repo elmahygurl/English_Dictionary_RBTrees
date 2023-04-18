@@ -154,12 +154,12 @@ def main():
         if x == 1:
             load_dict(tree)
         elif x == 2:
-            word = input("enter word to insert\n")
+            word = input("enter word to insert\n").lower()
             tree.insert(word)
             print("the new tree height is {}".format(tree.height(tree.root)))
             print("the new tree size is {} ".format(tree.size))
         elif x == 3:
-            word = input("enter word to search for\n")
+            word = input("enter word to search for\n").lower()
             if tree.search(word):
                 print("found word")
             else:
