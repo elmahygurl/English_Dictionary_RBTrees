@@ -17,10 +17,4 @@ This repository contains a Python implementation of a Red-Black Tree, a self-bal
     - Search for existing words.
     - Display tree height and size.
 
-## Getting Started
 
-1. Clone the repository:
-
-```bash
-git clone https://github.com/yourusername/Red-Black-Tree-Python.git
-cd Red-Black-Tree-Python
